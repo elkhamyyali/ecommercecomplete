@@ -7,23 +7,24 @@ import { getProductWishList } from '../../redux/actions/wishListAction';
 import CardContainerHook from './../../hook/products/card-container-hook';
 
 const CardProductsContainer = ({ title, btntitle, pathText, products }) => {
+  const [favProd] = CardContainerHook();
 
-    const [favProd] = CardContainerHook()
+  return (
+    <Container>
+      {" "}
+      {products ? (
+        <SubTiltle title={title} btntitle={btntitle} pathText={pathText} />
+      ) : null}{" "}
+      <Row className="my-2 d-flex justify-content-between">
+        {" "}
+        {products
+          ? products.map((item, index) => (
+              <ProductCard favProd={favProd} key={index} item={item} />
+            ))
+          : null}
+      </Row>{" "}
+    </Container>
+  );
+};
 
-    return (
-        <Container>
-            {products ? (<SubTiltle title={title} btntitle={btntitle} pathText={pathText} />) : null}
-            <Row className='my-2 d-flex justify-content-between'>
-                {
-                    products ? (
-                        products.map((item, index) => <ProductCard favProd={favProd} key={index} item={item} />)
-                    ) : null
-
-                }
-
-            </Row>
-        </Container>
-    )
-}
-
-export default CardProductsContainer
+export default CardProductsContainer;
